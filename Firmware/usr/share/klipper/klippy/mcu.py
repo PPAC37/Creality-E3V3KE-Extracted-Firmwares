@@ -808,6 +808,17 @@ class MCU:
                     self._serial.connect_pipe(self._serialport)
                 self._clocksync.connect(self._serial)
             except serialhdl.error as e:
+                code_key = "key560"
+                if self._name == "mcu":
+                    code_key = "key560"
+                elif self._name == "nozzle_mcu":
+                    code_key = "key561"
+                elif self._name == "leveling_mcu":
+                    code_key = "key562"
+                elif self._name == "rpi":
+                    code_key = "key563"
+                m = """{"code":"%s","msg":"Lost communication with MCU '%s'"}""" % (code_key, self._name)
+                self._printer.invoke_shutdown(m)
                 raise error(str(e))
         logging.info(self._log_info())
         ppins = self._printer.lookup_object('pins')
@@ -991,13 +1002,13 @@ class MCU:
         #code_key = "key506"
         code_key = "key560"
         if self._name == "mcu":
-            code_key = 560
+            code_key = "key560"
         elif self._name == "nozzle_mcu":
-            code_key = 561
+            code_key = "key561"
         elif self._name == "leveling_mcu":
-            code_key = 562
+            code_key = "key562"
         elif self._name == "rpi":
-            code_key = 563
+            code_key = "key563"
         m = """{"code":"%s","msg":"Lost communication with MCU '%s'"}""" % (code_key, self._name)
         self._printer.invoke_shutdown(m)
     def get_status(self, eventtime=None):

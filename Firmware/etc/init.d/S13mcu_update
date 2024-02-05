@@ -183,13 +183,8 @@ auto_update()
             fi
             ;;
         "NEBULA V1.0.0.1")
-            if [ "$model" = "F003" ]; then
+            if [ "$model" = "F005" ]; then
                 mcu0_serial=/dev/ttyS1
-                noz0_serial=/dev/ttyS7
-                fw_dir=F003
-            elif [ "$model" = "F005" ]; then
-                mcu0_serial=/dev/ttyS1
-                noz0_serial=/dev/ttyS7
                 fw_dir=F005
             else
                 fw_dir=
@@ -198,6 +193,7 @@ auto_update()
         *)
                 fw_dir=
             ;;
+
     esac
 
     if [ "x$fw_dir" = "x" -o ! -d $FW_ROOT_DIR/$fw_dir ]; then
