@@ -11,7 +11,7 @@ Pour coller avec https://github.com/Guilouz/Creality-K1-Extracted-Firmwares/
 
 You can find the firmware changes for each version:
 
-- [Changes from **1.1.0.9** to **1.1.0.10**](https://github.com/PPAC37/Creality-E3V3KE-Extracted-Firmwares/commit/e9cd2123c24e84216bfb9003d0af40abf628c930)
+- [Changes from **1.1.0.9** to **1.1.0.12**](https://github.com/PPAC37/Creality-E3V3KE-Extracted-Firmwares/commit/e9cd2123c24e84216bfb9003d0af40abf628c930)
 
 
 ---
