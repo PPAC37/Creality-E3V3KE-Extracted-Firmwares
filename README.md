@@ -1,8 +1,10 @@
 # Creality Ender-3 V3 KE Extracted Firmwares
 
-Comme je n'ai pas encore trouvé le mot de passe des fichiers '.img' des firmwares ( cf https://github.com/CrealityOfficial/Ender-3_V3_KE_Klipper/releases )
+Comme je n'ai pas encore trouvé les mots de passe des fichiers '.img' des firmwares ( cf https://github.com/CrealityOfficial/Ender-3_V3_KE_Klipper/releases )
 
-Aprés une mise a jour en v1.1.0.12 ( cf https://github.com/CrealityOfficial/Ender-3_V3_KE_Klipper/releases/tag/V1.1.0.12 ) j'ai fait des images des partitions `/dev/mmcblk0p7` et `/dev/mmcblk0p8` avec la commande de `dd` et extrait leur contenus pour peupler se dêpot.
+Après une mise à jour de ma Ender-3 V3 KE, avec le firmware v1.1.0.12 ( cf https://github.com/CrealityOfficial/Ender-3_V3_KE_Klipper/releases/tag/V1.1.0.12 )
+
+J'ai fait des images des partitions `/dev/mmcblk0p7` et `/dev/mmcblk0p8` avec la commande `dd` et extrais leurs contenus pour peupler ce dépôt.
 
 ---
 Pour coller avec https://github.com/Guilouz/Creality-K1-Extracted-Firmwares/
@@ -16,7 +18,10 @@ You can find the firmware changes for each version:
 
 ---
 
+<details>
+ <summary>Détail de la méthode utilisé (Cliquez pour déplier!)</summary>
 
+// Connecté en ssh a l'imprimante ( mode root activé via l'ecran de l'imprimante )
 
 ~~~
 fdisk -l
@@ -84,7 +89,86 @@ root@F005-4A88 /root [#] mv -v /usr/data/dd_mmcblk0p*.img /tmp/udisk/sda1/
 root@F005-4A88 /root [#] 
 </pre>
 
-Note: Compter 30 a 40 minutes pour faire une image d'une partion de 500 MB ( cela copie aussi les blocks vide ...).  
-Et comme je n'ai pas compréssé mes fichiers des images cela prenend bien une heure par fichier de 500 MB lors de la copie vers la clé USB d'origine (surment pas spécialement rapide ...).
+Note: Compter 30 à 40 minutes pour faire une image d'une partion de 500 MB ( cela copie aussi les blocs vides ...).  
+Et comme je n'ai pas compressé les fichiers '.img' cela prend bien une heure par fichier de 500 MB lors de la copie vers la clé USB d'origine (pas spécialement rapide ...).
+
+---
+
+Ensuite sous un PC sous linux en vrac ...
+
+<pre>
+git clone git@github.com:PPAC37/Creality-E3V3KE-Extracted-Firmwares.git
+
+cd Creality-E3V3KE-Extracted-Firmwares
+
+mkdir Firmware
+
+mkdir PartitionImageFiles
+
+echo -e "\n#\PartitionImageFiles\n" >> .gitignore
+
+git add .
+
+// copie de fichier .img de la clé vers un dossier `PartitionImageFiles/2024-02-05/`
+
+// Comme je vais monter les images des partition pour avoir les droits d'explorer integralement les points de montage, je passe en root.
+sudo su
+
+mount -o loop PartitionImageFiles/2024-02-05/dd_mmcblk0p7.img Firmware
+
+cat Firmware/etc/ota_info 
+ota_version=1.1.0.9
+ota_board_name=F005
+ota_compile_time=2023 10.09 16:43:20
+ota_site=http://192.168.43.52/ota/board_test
+     
+git add .
+
+git commit -m 1.1.0.9
+     
+git push
+
+Énumération des objets: 9743, fait.
+Décompte des objets: 100% (9743/9743), fait.
+Compression par delta en utilisant jusqu'à 4 fils d'exécution
+Compression des objets: 100% (7557/7557), fait.
+Écriture des objets: 100% (9742/9742), 103.50 Mio | 119.00 Kio/s, fait.
+Total 9742 (delta 1644), réutilisés 9742 (delta 1644)
+remote: Resolving deltas: 100% (1644/1644), done.
+To github.com:PPAC37/Creality-E3V3KE-Extracted-Firmwares.git
+   444159b..a9f9ff8  main -> main
+
+// zut je n'avais pas mis de Tag pour plus facilement retrouver la version ...
+git tag -a v1.1.0.9 a9f9ff8 -m "Ender-3 V3 KE v1.1.0.9"
+     
+git push origin v1.1.0.9
+Énumération des objets: 1, fait.
+Décompte des objets: 100% (1/1), fait.
+Écriture des objets: 100% (1/1), 158 octets | 158.00 Kio/s, fait.
+Total 1 (delta 0), réutilisés 0 (delta 0)
+To github.com:PPAC37/Creality-E3V3KE-Extracted-Firmwares.git
+
+umount Firmware/
+
+mount -o loop PartitionImageFiles/2024-02-05/dd_mmcblk0p8.img Firmware/
+
+cat Firmware/etc/ota_info 
+ota_version=1.1.0.12
+ota_board_name=F005
+ota_compile_time=2023 12.29 18:05:11
+ota_site=http://192.168.43.52/ota/board_test
+
+git add .
+
+git commit -m 1.1.0.12
+[main e9cd212] 1.1.0.12
+ 943 files changed, 1728 insertions(+), 440 deletions(-)
+
+git tag -a v1.1.0.12 e9cd212 -m "Ender-3 V3 KE v1.1.0.12"
+
+git push
+
+</pre>
+</details>
 
 
