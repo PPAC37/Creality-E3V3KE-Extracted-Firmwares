@@ -4,6 +4,20 @@ Comme je n'ai pas encore trouvé le mot de passe des fichiers '.img' des firmwar
 
 Aprés une mise a jour en v1.1.0.12 ( cf https://github.com/CrealityOfficial/Ender-3_V3_KE_Klipper/releases/tag/V1.1.0.12 ) j'ai fait des images des partitions `/dev/mmcblk0p7` et `/dev/mmcblk0p8` avec la commande de `dd` et extrait leur contenus pour peupler se dêpot.
 
+---
+Pour coller avec https://github.com/Guilouz/Creality-K1-Extracted-Firmwares/
+
+## About
+
+You can find the firmware changes for each version:
+
+- [Changes from **1.1.0.9** to **1.1.0.10**](https://github.com/PPAC37/Creality-E3V3KE-Extracted-Firmwares/commit/e9cd2123c24e84216bfb9003d0af40abf628c930)
+
+
+---
+
+
+
 ~~~
 fdisk -l
 ~~~
