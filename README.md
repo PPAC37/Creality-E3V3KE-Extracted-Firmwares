@@ -114,6 +114,8 @@ git add .
 // Comme je vais monter les images des partition pour avoir les droits d'explorer integralement les points de montage, je passe en root.
 sudo su
 
+
+
 mount -o loop PartitionImageFiles/2024-02-05/dd_mmcblk0p7.img Firmware
 
 cat Firmware/etc/ota_info 
@@ -125,7 +127,10 @@ ota_site=http://192.168.43.52/ota/board_test
 git add .
 
 git commit -m 1.1.0.9
-     
+
+// comme j'ai fait un sudo su, il me faut mettre dans /root/.ssh les clés de mon home/utisateur/.ssh/ pour mon acces a mon compte github
+...
+
 git push
 
 Énumération des objets: 9743, fait.
@@ -168,6 +173,11 @@ git tag -a v1.1.0.12 e9cd212 -m "Ender-3 V3 KE v1.1.0.12"
 
 git push
 
+umount Firmware/
+
+// ctrl+d pour me deloger du sudo su
+// Il me faudra donc passer en utilisateur root ou utiliser sudo si je veux réutiliser se dépôt local ?
+ 
 </pre>
 </details>
 
